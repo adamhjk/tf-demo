@@ -1,11 +1,16 @@
 terraform {
+  cloud {
+    organization = "demo_time"
+    workspaces {
+        name = "demo_time"
+    }
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 4.16"
     }
   }
-
   required_version = ">= 1.2.0"
 }
 
@@ -16,7 +21,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "main" {
-    cidr_block = "10.0.0.0/16"
+    cidr_block = "11.0.0.0/16"
 
     tags = {
         Name = "Project VPC"
