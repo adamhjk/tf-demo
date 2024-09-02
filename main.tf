@@ -93,9 +93,15 @@ resource "aws_route_table_association" "public_subnet_asso" {
     route_table_id = aws_route_table.second_rt.id
 }
 
+resource "aws_key_pair" "fedora-keypair" {
+    key_name = "fedora-keypair"
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDTx9n3Mt+wgBFCsRFmlgtPAfT1h1/NIZqLTwxTwXf/o335BgKUcUWd3+qZjf9d5lXT603y9I9nnIfDt3evldnlDwHVEHHKUplSxXradecjspDbdSFQ3wr6iTyMWpQhYim0BvqWFM2bchCGl3HzBrXIX0/R1kU9srN0Qe4c0UDCVCLNQpl9qefeEOsPOEBdnsUMQ5E9SSMjAAXY6V+RsKfAsD3kwPpOuixibDZN2DwLr7Y8iiSOwY9dqMRR7HGhGHJkMUO/PpQaksNm+AEqUuFzDbmDaSjyjfLM78p8nqYPqneSBOkX9cP8E6gMKv1QTas+CWa0eB+C556l9yHXnUYBpHFjGdKFG1PfFxF4cqxrc2c0Ydjz792EtmA2eXx1TUGml1hIdYyEftBlJV6tshJ1E0edCqlNDPpgDGb8oWgniU6lfJ7+kM+U2sSkNlk3oeC1MSHXT3JJpwlu3hAekRsHinFkMm6MWEnsxe+saX11O2/0D3th58/1pLXtjoSEYSPH3WNe/fKLUfCejF7/J69cnJ+A5FLQuepes3Bh6BmTwxjr/cSsSKrvZw2p4tFuFSegkDKOR0Yq3DNyLb7vttF1DBWmoxcxexUuI+WiPHcvlKLSaYpVQ8xIKpLfpglK2RXpZJRVUotRxrfZitbHdjQ1MHFySQxgh4gC/4rsg8nDVw== adam@stalecoffee.org"
+}
+
 resource "aws_instance" "fedora" {
     ami = "ami-06b7f026f48cd3c6b"
     instance_type = "t2.micro"
+    key_name = aws_key_pair.fedora-keypair.key_name
     tags = {
         Name = "Terraform demo"
     }
