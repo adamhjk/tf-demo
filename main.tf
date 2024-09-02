@@ -92,3 +92,11 @@ resource "aws_route_table_association" "public_subnet_asso" {
     subnet_id = element(aws_subnet.public_subnets[*].id, count.index)
     route_table_id = aws_route_table.second_rt.id
 }
+
+resource "aws_instance" "fedora" {
+    ami = "ami-06b7f026f48cd3c6b"
+    instance_type = "t2.micro"
+    tags = {
+        Name = "Terraform demo"
+    }
+}
